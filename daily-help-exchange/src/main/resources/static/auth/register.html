@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Daily Help Exchange</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+<main class="auth-page">
+    <section class="auth-card">
+        <div class="brand">
+            <div class="brand-mark">↪</div>
+            <h2>Create Account</h2>
+        </div>
+        <p class="auth-subtitle">Register before opening the task dashboard.</p>
+
+        <div id="message" class="message"></div>
+
+        <form id="registerForm" class="auth-form">
+            <div class="field">
+                <label for="name">Full name</label>
+                <input id="name" class="input" type="text" required
+                       maxlength="100" placeholder="Enter full name">
+            </div>
+            <div class="field">
+                <label for="phone">Phone number</label>
+                <input id="phone" class="input" type="tel" required
+                       minlength="10" maxlength="15" placeholder="Enter phone number">
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input id="password" class="input" type="password" required
+                       minlength="6" placeholder="Minimum 6 characters">
+            </div>
+            <div class="field">
+                <label for="confirmPassword">Confirm password</label>
+                <input id="confirmPassword" class="input" type="password" required
+                       minlength="6" placeholder="Enter password again">
+            </div>
+            <button class="button" type="submit">Register</button>
+        </form>
+
+        <p class="auth-link">
+            Already registered? <a href="/auth/login.html">Go to Login</a>
+        </p>
+    </section>
+</main>
+
+<div id="loader" class="loader"><div class="loader-box">Registering...</div></div>
+<script src="/js/register.js" defer></script>
+</body>
+</html>

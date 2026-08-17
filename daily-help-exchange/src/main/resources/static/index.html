@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Help Exchange</title>
+</head>
+<body>
+    <p>Opening Daily Help Exchange...</p>
+    <script>
+        fetch('/api/auth/me')
+            .then(response => {
+                window.location.replace(
+                    response.ok ? '/tasks/home.html' : '/auth/login.html'
+                );
+            })
+            .catch(() => window.location.replace('/auth/login.html'));
+    </script>
+</body>
+</html>

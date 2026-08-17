@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Daily Help Exchange</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+<main class="auth-page">
+    <section class="auth-card">
+        <div class="brand">
+            <div class="brand-mark">↪</div>
+            <h2>Daily Help Exchange</h2>
+        </div>
+        <p class="auth-subtitle">Log in to manage and exchange tasks.</p>
+
+        <div id="message" class="message"></div>
+
+        <form id="loginForm" class="auth-form">
+            <div class="field">
+                <label for="phone">Phone number</label>
+                <input id="phone" class="input" type="tel" required
+                       minlength="10" maxlength="15" placeholder="Enter phone number">
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input id="password" class="input" type="password" required
+                       placeholder="Enter password">
+            </div>
+            <button class="button" type="submit">Login</button>
+        </form>
+
+        <p class="auth-link">
+            New user? <a href="/auth/register.html">Create an account</a>
+        </p>
+    </section>
+</main>
+
+<div id="loader" class="loader"><div class="loader-box">Logging in...</div></div>
+<script src="/js/login.js" defer></script>
+</body>
+</html>

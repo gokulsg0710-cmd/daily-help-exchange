@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Daily Help Exchange</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/tasks.css">
+</head>
+<body>
+<main id="page" class="page" hidden>
+    <header class="header">
+        <div class="brand">
+            <div class="brand-mark">↪</div>
+            <h1>Daily Help Exchange</h1>
+        </div>
+        <div class="user-box">
+            <span id="userName" class="user-name">User</span>
+            <button id="logoutButton" class="button danger" type="button">Logout</button>
+        </div>
+    </header>
+
+    <section class="stats">
+        <article class="stat"><strong id="totalTask">0</strong><span>Total tasks</span></article>
+        <article class="stat"><strong id="openTask">0</strong><span>Open</span></article>
+        <article class="stat"><strong id="claimedTask">0</strong><span>Claimed</span></article>
+        <article class="stat"><strong id="completedTask">0</strong><span>Completed</span></article>
+        <article class="stat"><strong id="totalPoints">0</strong><span>Earned points</span></article>
+    </section>
+
+    <div id="message" class="message"></div>
+
+    <section class="workspace">
+        <aside class="panel">
+            <h3>Create New Task</h3>
+            <form id="taskForm" class="task-form">
+                <div class="field">
+                    <label for="title">Task title</label>
+                    <input id="title" class="input" required maxlength="150"
+                           placeholder="Example: Clean the kitchen">
+                </div>
+                <div class="field">
+                    <label for="description">Description</label>
+                    <textarea id="description" class="input" rows="5" maxlength="1000"
+                              placeholder="Describe the work"></textarea>
+                </div>
+                <div class="field">
+                    <label for="dueDate">Due date</label>
+                    <input id="dueDate" class="input" type="date" required>
+                </div>
+                <div class="field">
+                    <label>Priority</label>
+                    <div id="priorityRow" class="priority-row">
+                        <button class="priority-button" data-priority="1" type="button">1</button>
+                        <button class="priority-button" data-priority="2" type="button">2</button>
+                        <button class="priority-button active" data-priority="3" type="button">3</button>
+                        <button class="priority-button" data-priority="4" type="button">4</button>
+                        <button class="priority-button" data-priority="5" type="button">5</button>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="rewardPoints">Reward points</label>
+                    <input id="rewardPoints" class="input" type="number"
+                           min="1" max="500" value="10" required>
+                </div>
+                <button class="button" type="submit">Post Task</button>
+            </form>
+        </aside>
+
+        <section class="panel">
+            <div class="board-tools">
+                <nav id="tabs" class="tabs" aria-label="Task filters">
+                    <button class="tab active" data-tab="all" type="button">All Tasks</button>
+                    <button class="tab" data-tab="open" type="button">Open</button>
+                    <button class="tab" data-tab="my-claimed" type="button">Claimed by Me</button>
+                    <button class="tab" data-tab="completed" type="button">Completed</button>
+                </nav>
+                <select id="sortSelect" class="input" aria-label="Sort tasks">
+                    <option value="dueDate">Due date</option>
+                    <option value="priority-desc">Priority: high to low</option>
+                    <option value="priority-asc">Priority: low to high</option>
+                    <option value="points-desc">Points: high to low</option>
+                </select>
+            </div>
+            <div id="tasksGrid" class="tasks-grid"></div>
+        </section>
+    </section>
+</main>
+
+<div id="loader" class="loader"><div id="loaderText" class="loader-box">Loading...</div></div>
+<script src="/js/tasks.js" defer></script>
+</body>
+</html>

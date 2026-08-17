@@ -1,0 +1,58 @@
+DAILY HELP EXCHANGE - SEPARATED CODE GUIDE
+==========================================
+
+FRONTEND LOCATION
+-----------------
+src/main/resources/static/
+
+The old single 1,700-line index.html was separated into:
+
+index.html                 Checks the session and opens Login or Home
+auth/login.html            Login page structure
+auth/register.html         Registration page structure
+tasks/home.html            Home dashboard and task form structure
+css/common.css             Shared colours, inputs, buttons, messages and loader
+css/auth.css               Login and registration page design
+css/tasks.css              Home dashboard and task-card design
+js/login.js                Login API request and redirect
+js/register.js             Registration API request and redirect
+js/tasks.js                Session check, task CRUD, filters and rendering
+
+BACKEND CODE
+------------
+Controller/AuthController.java       Register, login, current user and logout APIs
+Controller/HelpTaskController.java   Task APIs
+Service/UserService.java             User registration/login logic and BCrypt
+Service/HelpTaskService.java         Task business logic
+Repository/UserRepository.java       PostgreSQL users table access
+Repository/HelpTaskRepository.java   PostgreSQL help_tasks table access
+Model/User.java                      users table definition
+Model/HelpTask.java                  help_tasks table definition
+Config/AuthInterceptor.java          Blocks task APIs before login
+
+POSTGRESQL
+----------
+Do not create database folders. PostgreSQL creates separate tables:
+
+users       Stores registered users and encrypted passwords
+help_tasks  Stores tasks, status, creator, claimant, dates and points
+
+PAGE FLOW
+---------
+http://localhost:8091
+        -> index.html checks GET /api/auth/me
+        -> no session: /auth/login.html
+        -> new user: /auth/register.html
+        -> successful registration: /auth/login.html
+        -> successful login: /tasks/home.html
+        -> logout: /auth/login.html
+
+RUN
+---
+Open PowerShell in the folder containing pom.xml and run:
+
+.\mvnw.cmd clean spring-boot:run
+
+Then open:
+
+http://localhost:8091
