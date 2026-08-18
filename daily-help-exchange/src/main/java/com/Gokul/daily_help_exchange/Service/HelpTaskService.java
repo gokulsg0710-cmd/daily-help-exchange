@@ -44,6 +44,9 @@ public class HelpTaskService {
 
     /*
      * Create a new task
+     *
+     * Every newly created task automatically starts
+     * with OPEN status.
      */
     public HelpTask createTask(
             HelpTask task,
@@ -51,11 +54,14 @@ public class HelpTaskService {
             String creatorName
     ) {
         task.setId(null);
+
         task.setCreatedBy(creatorName);
         task.setCreatedByUserId(creatorUserId);
 
+        // New tasks always start as OPEN
         task.setStatus(TaskStatus.OPEN);
 
+        // New tasks cannot already be claimed
         task.setClaimedBy(null);
         task.setClaimedByUserId(null);
 
@@ -117,6 +123,7 @@ public class HelpTaskService {
      * Complete a claimed task
      */
     public HelpTask completeTask(Long id) {
+
         HelpTask task = repository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
@@ -139,6 +146,7 @@ public class HelpTaskService {
      * Reopen a completed task
      */
     public HelpTask reopenTask(Long id) {
+
         HelpTask task = repository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
@@ -153,6 +161,7 @@ public class HelpTaskService {
         }
 
         task.setStatus(TaskStatus.OPEN);
+
         task.setClaimedBy(null);
         task.setClaimedByUserId(null);
 
@@ -163,6 +172,7 @@ public class HelpTaskService {
      * Delete a task
      */
     public void deleteTask(Long id) {
+
         HelpTask task = repository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
@@ -177,25 +187,36 @@ public class HelpTaskService {
      * Dashboard information
      */
     @Transactional(readOnly = true)
-public DashboardResponse getDashboard() {
+    public DashboardResponse getDashboard() {
 
-    long total = repository.count();
-    long open = repository.countByStatus(TaskStatus.OPEN);
-    long claimed = repository.countByStatus(TaskStatus.CLAIMED);
-    long completed = repository.countByStatus(TaskStatus.COMPLETED);
+        long total = repository.count();
 
-    long totalReward = repository.findAll()
-            .stream()
-            .filter(task -> task.getStatus() == TaskStatus.COMPLETED)
-            .mapToLong(HelpTask::getRewardPoints)
-            .sum();
+        long open = repository.countByStatus(
+                TaskStatus.OPEN
+        );
 
-    return new DashboardResponse(
-            total,
-            open,
-            claimed,
-            completed,
-            totalReward
-    );
-}
+        long claimed = repository.countByStatus(
+                TaskStatus.CLAIMED
+        );
+
+        long completed = repository.countByStatus(
+                TaskStatus.COMPLETED
+        );
+
+        long totalReward = repository.findAll()
+                .stream()
+                .filter(task ->
+                        task.getStatus() == TaskStatus.COMPLETED
+                )
+                .mapToLong(HelpTask::getRewardPoints)
+                .sum();
+
+        return new DashboardResponse(
+                total,
+                open,
+                claimed,
+                completed,
+                totalReward
+        );
+    }
 }

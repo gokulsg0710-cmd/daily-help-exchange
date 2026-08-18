@@ -78,7 +78,12 @@ public class HelpTask {
     @Column(name = "reward_points", nullable = false)
     private int rewardPoints;
 
-    @NotNull(message = "Task status is required")
+    /*
+     * New tasks are always created as OPEN.
+     *
+     * No @NotNull validation here because the status
+     * is automatically assigned by HelpTaskService.
+     */
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
     @Builder.Default
